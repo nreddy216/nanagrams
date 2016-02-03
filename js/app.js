@@ -1,4 +1,3 @@
-
 //selects the ID of the letter
 //saves the ID as 'last selected letter'
 //the next place clicked then inputs the image into the box
@@ -159,7 +158,6 @@ function wordLoggerHorizontal(){
 
       // WANT TO CHECK WHETHER THE BOX TO THE LEFT IS EMPTY
 
-        debugger
       }
     }
     low = low + inc;
@@ -171,14 +169,16 @@ function wordLoggerHorizontal(){
 
   }
 
-  console.log(allWordsArray);
+  // console.log(allWordsArray);
   return allWordsArray;
 }
 
 function dictionaryCheck(){
   //CHECKS IF WORD IS IN DICTIONARY
 
-  allWordsArray = wordLoggerHorizontal();
+  allWordsArrayVert = wordLoggerVertical();
+  allWordsArrayHoriz = wordLoggerHorizontal();
+  allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
   for(var i=0; i<allWordsArray.length;i++){
     if(dictionaryArray.indexOf(allWordsArray[i])> -1){
@@ -206,7 +206,7 @@ $(document).ready(function(){
     $(".title").click(function(){
         findLetters();
         dictionaryCheck();
-        console.log(Board);
+        // console.log(Board);
     });
 
 

@@ -1,29 +1,48 @@
+body{
+  background-color: #1a1a1a;
+}
+
+.title{
+  text-align: center;
+  font-family: Avenir;
+  color: white;
+}
+
 .board{
   text-align: center;
   color: #0f9;
+  min-width: 500px;
+
 }
 
 .row{
   display: inline-block;
-  margin: 0;
+
 }
 
 .cell{
-  border: 1px solid #000;
-  width: 40px;
-  height: 40px;
+  border: 0.01px solid #333333;
+  border-radius: 7px;
+  width: 60px;
+  height: 60px;
+  /*WATCH OUT FOR MARGIN*/
+  margin-bottom: 3px;
 }
 
 .cell img{
-  width: 40px;
+  width: 60px;
 }
 
 .tile-pile{
-  border: 2px solid #000;
-  background-color: #f77;
-  height: 80px;
+  border: 0px solid #000;
+  border-radius: 5px;
+  background-color: #333333;
+  height: 200px;
   width: 100%;
-  position: absolute;
+  min-width: 800px;
+  margin-top: 40px;
+  padding: 10px;
+  /*position: absolute;*/
   bottom: 0px;
 }
 
@@ -42,14 +61,13 @@
   display: inherit;
 }
 
-.tile{
+.letters{
   display: inline-block;
   width: 500px;
 }
 
-.tile img{
-  width: 30px;
-  white-space: nowrap;
-  /*background: #f54;
-  border: black solid;*/
+.letters img{
+  width: 60px;
+  /*white-space: nowrap;*/
+
 }

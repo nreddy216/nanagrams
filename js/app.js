@@ -3,6 +3,7 @@
 //saves the ID as 'last selected letter'
 //the next place clicked then inputs the image into the box
 
+//WORKING!!!!
 var lastClicked;
 
 function setEventListeners() {
@@ -18,16 +19,16 @@ function setEventListeners() {
 //////////////////////////////////////////
 
 // DRAG AND DROP VERSION USING JQUERY UI
-//
+
 // function init(){
-//   $(".tile img").draggable(
+//   $(".letter img").draggable(
 //     {
-//       // containment: '.board',
+//       containment: '.board',
 //       cursor: 'move',
-//       // snap: ".cell",
+//       snap: ".cell",
 //     }
 //   );
-//
+
 //   $(".cell").droppable({
 //     drop: function(event, ui){
 //       var cell = $(this);
@@ -47,16 +48,22 @@ function setEventListeners() {
 // }
 //
 //
-// function playGame(){
-//   // init();
-//   // handleDropEvent();
-//
-// }
 
+/////////////////////////////////////////////
+// DICTIONARY CHECK
+
+//take values of images
+//push them onto an array
+//join the array
+//check if the dictionary has the word
+//if so, return true, if not, return false
+
+var dictionaryArray = ["ban", "nab"];
 
 // RUNNING
 $(document).ready(function(){
 
     setEventListeners();
+    // setEventListeners();
 
 });

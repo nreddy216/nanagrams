@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <style>
+      .a {
+        fill: #68c7c1;
+      }
+
+      .b {
+        fill: #f1f2f2;
+      }
+    </style>
+  </defs>
+  <title>tile</title>
+  <rect class="a" width="60" height="60" rx="4.7" ry="4.7"/>
+  <path class="b" d="M6.82,48.32L12.58,8.1h0.65l16.35,33,16.19-33h0.64l5.79,40.22H48.27l-4-28.77L30.07,48.32H29l-14.39-29-4,29H6.82Z"/>
+</svg>

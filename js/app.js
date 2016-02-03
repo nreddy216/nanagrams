@@ -144,20 +144,26 @@ function wordLoggerVertical(){
 function wordLoggerHorizontal(){
   var allWordsArray = [];
 
-  //VERTICALLY - column by column
-  var low= 1;
+  //Horizontally
+  var low= 0;
   var high = 0;
+  var inc = 1;
 
   //goes through the whole board column by column, left > right
-  while(high<=36){
+  while(high<=36 && low<=6){
     var word = "";
-    for(var i=0+low; i<=31+high; i+=6){
+    for(var i=1+low; i<=31+high; i+=6){
       if(typeof Board[i]==="string"){
-        word+=Board[i];
+          // DEFAULT
+          word+=Board[i];
+
+      // WANT TO CHECK WHETHER THE BOX TO THE LEFT IS EMPTY
+
+        debugger
       }
     }
-    low = low + 6;
-    high = high + 1;
+    low = low + inc;
+    high = high + inc;
 
     if(word!=="" && word.length>1){
       allWordsArray.push(word);
@@ -165,6 +171,7 @@ function wordLoggerHorizontal(){
 
   }
 
+  console.log(allWordsArray);
   return allWordsArray;
 }
 

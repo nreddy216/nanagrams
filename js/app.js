@@ -113,13 +113,81 @@ function findLetters(){
 
 }
 
-// //CHECKS IF WORD IS IN DICTIONARY
-// if(dictionaryArray.indexOf(wordArray.join(""))> -1){
-//   console.log(true);
-// }
-// else{
-//   console.log(false);
-// }
+function wordLoggerVertical(){
+  var allWordsArray = [];
+
+  //VERTICALLY - column by column
+  var low= 0;
+  var high = 0;
+  var inc = 6;
+
+  //goes through the whole board column by column, left > right
+  while(high<36){
+    var word = "";
+    for(var i=1+low; i<=6+high; i++){
+      if(typeof Board[i]==="string"){
+        word+=Board[i];
+      }
+    }
+    low = low + inc;
+    high = high + inc;
+
+    if(word!=="" && word.length>1){
+      allWordsArray.push(word);
+    }
+
+  }
+
+  return allWordsArray;
+}
+
+function wordLoggerHorizontal(){
+  var allWordsArray = [];
+
+  //VERTICALLY - column by column
+  var low= 1;
+  var high = 0;
+
+  //goes through the whole board column by column, left > right
+  while(high<=36){
+    var word = "";
+    for(var i=0+low; i<=31+high; i+=6){
+      if(typeof Board[i]==="string"){
+        word+=Board[i];
+      }
+    }
+    low = low + 6;
+    high = high + 1;
+
+    if(word!=="" && word.length>1){
+      allWordsArray.push(word);
+    }
+
+  }
+
+  return allWordsArray;
+}
+
+function dictionaryCheck(){
+  //CHECKS IF WORD IS IN DICTIONARY
+
+  allWordsArray = wordLoggerHorizontal();
+
+  for(var i=0; i<allWordsArray.length;i++){
+    if(dictionaryArray.indexOf(allWordsArray[i])> -1){
+      console.log("This word is correct: " + allWordsArray[i]);
+    }
+    else{
+      console.log("This word is not correct: " + allWordsArray[i]);
+    }
+  }
+
+
+
+}
+
+
+
 
 
 
@@ -130,6 +198,7 @@ $(document).ready(function(){
 
     $(".title").click(function(){
         findLetters();
+        dictionaryCheck();
         console.log(Board);
     });
 

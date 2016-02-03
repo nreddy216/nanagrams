@@ -50,6 +50,36 @@ function setEventListeners() {
 //
 
 /////////////////////////////////////////////
+
+///2D ARRAY CREATION
+
+//36 value board - NEEDED?
+var Board = {};
+
+for(var i=1; i<=36; i++){
+  Board[i] = null;
+}
+
+//todo - if the index is now empty (and was assigned a letter),
+//then make it empty again
+function updateBoard(index){
+
+  //gets the letter of the index selected
+  var letterInBox = $("#"+index).children().attr("value");
+
+  //if the type of the element in the box is a string
+  //then it updates the board
+  if(typeof letterInBox === "string"){
+    Board[index] = letterInBox;
+  }
+  //otherwise, it replaces the board's value to null
+  else{
+      Board[index]=null;
+  }
+}
+
+
+
 // DICTIONARY CHECK
 
 //take values of images
@@ -58,24 +88,38 @@ function setEventListeners() {
 //check if the dictionary has the word
 //if so, return true, if not, return false
 
+//fake dictionary
 var dictionaryArray = ["ban", "nab"];
 
-function findWord(){
-  var wordArray = [];
-  for(var i=1; i<=6; i++){
-    if($("#"+i).children().attr("id")!== undefined){
-      wordArray.push($("#"+i).children().attr("id"));
+//only searches for word in the first column ("row")
+function findLetters(){
+  var low= 0;
+  var high = 0;
+  var inc = 6;
+
+  //goes through the whole board column by column, left > right
+  //adds each value to the Board object
+  while(high<36){
+    for(var i=0+low; i<6+high; i++){
+
+        //gets the div by its number ID, gets it child (the image)
+        //and gets the value
+        updateBoard(i);
     }
+
+    low = low + inc;
+    high = high + inc;
   }
 
-  if(dictionaryArray.indexOf(wordArray.join(""))> -1){
-    console.log(true);
-  }
-  else{
-    console.log(false);
-  }
 }
 
+// //CHECKS IF WORD IS IN DICTIONARY
+// if(dictionaryArray.indexOf(wordArray.join(""))> -1){
+//   console.log(true);
+// }
+// else{
+//   console.log(false);
+// }
 
 
 
@@ -83,11 +127,13 @@ function findWord(){
 $(document).ready(function(){
 
     setEventListeners();
-    // setEventListeners();
 
     $(".title").click(function(){
-        findWord();
+        findLetters();
+        console.log(Board);
     });
+
+
 
 
 });

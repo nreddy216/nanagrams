@@ -60,10 +60,34 @@ function setEventListeners() {
 
 var dictionaryArray = ["ban", "nab"];
 
+function findWord(){
+  var wordArray = [];
+  for(var i=1; i<=6; i++){
+    if($("#"+i).children().attr("id")!== undefined){
+      wordArray.push($("#"+i).children().attr("id"));
+    }
+  }
+
+  if(dictionaryArray.indexOf(wordArray.join(""))> -1){
+    console.log(true);
+  }
+  else{
+    console.log(false);
+  }
+}
+
+
+
+
 // RUNNING
 $(document).ready(function(){
 
     setEventListeners();
     // setEventListeners();
+
+    $(".title").click(function(){
+        findWord();
+    });
+
 
 });

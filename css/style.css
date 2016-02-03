@@ -1,0 +1,55 @@
+.board{
+  text-align: center;
+  color: #0f9;
+}
+
+.row{
+  display: inline-block;
+  margin: 0;
+}
+
+.cell{
+  border: 1px solid #000;
+  width: 40px;
+  height: 40px;
+}
+
+.cell img{
+  width: 40px;
+}
+
+.tile-pile{
+  border: 2px solid #000;
+  background-color: #f77;
+  height: 80px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.peel-btn{
+  border: 2px solid #000;
+  background-color: #f80;
+  color: white;
+  width: 200px;
+  height: 70px;
+  float: right;
+  text-align: center;
+  visibility: hidden;;
+}
+
+.letter {
+  display: inherit;
+}
+
+.tile{
+  display: inline-block;
+  width: 500px;
+}
+
+.tile img{
+  width: 30px;
+  white-space: nowrap;
+  /*background: #f54;
+  border: black solid;*/
+}

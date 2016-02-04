@@ -168,39 +168,54 @@ function wordLoggerHorizontal(){
 }
 
 //fake dictionary
-var dictionaryArray = ["ban", "nab", "an", "sad"];
+// var dictionaryArray = ["ban", "nab", "an", "sad"];
 
-function dictionaryCheck(){
+function wordCorrect(){
   //concatenates both horiz and vert word arrays
   allWordsArrayVert = wordLoggerVertical();
   allWordsArrayHoriz = wordLoggerHorizontal();
   allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
+  // var dictionary = returnDict();
+
   for(var i=0; i<allWordsArray.length;i++){
     //checks whether the word is in the dictionary
-    if(dictionaryArray.indexOf(allWordsArray[i])> -1){
-      console.log("This word is correct: " + allWordsArray[i]);
-      // return true;
-    }
-    else{
-      console.log("This word is not correct: " + allWordsArray[i]);
-      // return false;
-    }
+    // if(dictionary.indexOf(allWordsArray[i])> -1){
+      isWord(allWordsArray[i], notifyUser);
   }
 
 }
 
-
-
-function appendTile(letter){
-  var letterImg = $('<img>');
-  letterImg.attr('src', "images/tiles/tiles-"+letter+".svg");
-  letterImg.attr('id', letter);
-  letterImg.attr('value', letter);
-  letterImg.attr('class', "letter");
-  $(".letters").append(letterImg);
-
+function notifyUser(isWord) {
+  if(isWord){
+    console.log("This word is correct");
+    // return true;
+  } else{
+    console.log("This word is not correct");
+    // return false;
+  }
 }
+
+//searchTerm is the word that is created
+//cb is the callback function "notifyUser(isWord)"
+function isWord(searchTerm, cb) {
+
+  var endpoint = "http://api.wordnik.com/v4/word.json/" + searchTerm + "/definitions?useCanonical=false&includeSuggestions=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+  $.ajax({
+    type: 'GET',
+    url: endpoint,
+    dataType: 'json',
+    success: function(data) {
+      console.log("results:", data.length)
+      if(data.length > 0) {
+        cb(true);
+      } else {
+        cb(false);
+      }
+    }
+  });
+}
+
 
 
 //similar to bubble sort but randomizes
@@ -222,6 +237,20 @@ function shuffle(array){
 
   return array;
 }
+
+
+function appendTile(letter){
+  var letterImg = $('<img>');
+  letterImg.attr('src', "images/tiles/tiles-"+letter+".svg");
+  letterImg.attr('id', letter);
+  letterImg.attr('value', letter);
+  letterImg.attr('class', "letter");
+  $(".letters").append(letterImg);
+
+}
+
+
+
 
 //GLOBAL LETTER ARRAY
 var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
@@ -248,12 +277,7 @@ function peel(){
     appendTile(selectedLetter);
 
   }
-
-
 };
-
-
-
 
 
 // RUNNING
@@ -269,12 +293,10 @@ $(document).ready(function(){
 
     $(".peel-btn").click(function(){
         findLetters();
-        dictionaryCheck();
         peel();
+        wordCorrect();
         setEventListeners();
         // console.log(Board);
 
     });
-
-
 });

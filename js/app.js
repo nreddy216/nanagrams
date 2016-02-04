@@ -78,18 +78,9 @@ function updateBoard(index){
 
 
 
-// DICTIONARY CHECK
 
-//take values of images
-//push them onto an array
-//join the array
-//check if the dictionary has the word
-//if so, return true, if not, return false
 
-//fake dictionary
-var dictionaryArray = ["ban", "nab", "an", "sad"];
-
-//only searches for word in the first column ("row")
+//only searches for word in the first column
 function findLetters(){
   var low= 0;
   var high = 0;
@@ -99,7 +90,6 @@ function findLetters(){
   //adds each value to the Board object
   while(high<36){
     for(var i=0+low; i<6+high; i++){
-
         //gets the div by its number ID, gets it child (the image)
         //and gets the value
         updateBoard(i);
@@ -125,18 +115,23 @@ function wordLoggerVertical(){
   while(high<36){
     var word = "";
     for(var i=1+low; i<=6+high; i++){
-      if(typeof Board[i]==="string"){
+      if(typeof Board[i]==="string" && (typeof Board[i-1]==="string" || typeof Board[i+1]==="string")){
         word+=Board[i];
+
+        if(typeof Board[i+1]!=="string"){
+          allWordsArray.push(word);
+          var word="";
+
+        }
       }
     }
+
     low = low + inc;
     high = high + inc;
 
-    if(word!=="" && word.length>1){
-      allWordsArray.push(word);
-    }
-
   }
+
+  console.log(allWordsArray);
 
   return allWordsArray;
 }
@@ -154,21 +149,26 @@ function wordLoggerHorizontal(){
   while(high<=36 && low<=6){
     var word = "";
     for(var i=1+low; i<=31+high; i+=6){
-      if(typeof Board[i]==="string"){
+      if(typeof Board[i]==="string" && (typeof Board[i-6]==="string" || typeof Board[i+6]==="string")){
           word+=Board[i];
+
+          if(typeof Board[i+6]!=="string"){
+            allWordsArray.push(word);
+            var word="";
+          }
+        }
       }
-    }
+
     low = low + inc;
     high = high + inc;
 
-    if(word!=="" && word.length>1){
-      allWordsArray.push(word);
-    }
-
   }
-
-  return allWordsArray;
+    console.log(allWordsArray);
+    return allWordsArray;
 }
+
+//fake dictionary
+var dictionaryArray = ["ban", "nab", "an", "sad"];
 
 function dictionaryCheck(){
   //concatenates both horiz and vert word arrays
@@ -223,10 +223,11 @@ function shuffle(array){
   return array;
 }
 
+//GLOBAL LETTER ARRAY
+var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
+
 
 function peel(){
-
-  var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
 
   var shuffledArray = shuffle(letterArray);
 
@@ -234,17 +235,20 @@ function peel(){
   if(shuffledArray.length<1){
     return;
   }
+  else{
+    var random = Math.floor(Math.random()*(shuffledArray.length));
 
-  var random = Math.floor(Math.random()*(shuffledArray.length));
+    var selectedLetter = shuffledArray[random];
 
-  var selectedLetter = shuffledArray[random];
+    //gets index of the selected letter
+    var index = shuffledArray.indexOf(selectedLetter);
 
-  //gets index of the selected letter
-  var index = shuffledArray.indexOf(selectedLetter);
+    //removes the selected letter from array
+    shuffledArray.splice(index, 1);
+    appendTile(selectedLetter);
 
-  //removes the selected letter from array
-  shuffledArray.splice(index, 1);
-  appendTile(selectedLetter);
+  }
+
 
 };
 

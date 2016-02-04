@@ -49,23 +49,46 @@ body{
 }
 
 .peel-btn{
-  border: 2px solid #000;
-  background-color: #f80;
+  /*border: 2px solid #000;*/
+  background-color: #8565c4;
+  border-radius: 5px;
   color: white;
   width: 200px;
   height: 70px;
   float: right;
+  right: 20px;
   text-align: center;
+
+  font-size: 30px;
+  font-family: Avenir;
   /*visibility: hidden;;*/
+}
+
+.dump-btn{
+  background-color: #2565c4;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  height: 70px;
+  float: left;
+  right: 20px;
+  text-align: center;
+
+  font-size: 30px;
+  font-family: Avenir;
 }
 
 .letter {
   display: inherit;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .letters{
   display: inline-block;
   width: 500px;
+
+  text-align: center;
 }
 
 .letters img{

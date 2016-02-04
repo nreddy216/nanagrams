@@ -112,6 +112,8 @@ function findLetters(){
 
 }
 
+//todo: COMBINE THE VERTICAL & HORIZONTAL INTO ONE function
+//POTENTIALLY DO THIS IN A WAY WHERE THE GRID CAN BE n x n!
 function wordLoggerVertical(){
   var allWordsArray = [];
 
@@ -179,38 +181,17 @@ function dictionaryCheck(){
     //checks whether the word is in the dictionary
     if(dictionaryArray.indexOf(allWordsArray[i])> -1){
       console.log("This word is correct: " + allWordsArray[i]);
-      return true;
+      // return true;
     }
     else{
       console.log("This word is not correct: " + allWordsArray[i]);
-      return false;
+      // return false;
     }
   }
 
-
-
 }
 
-// function tileImageAdd(){
-//
-//   var alphabet = ["a","b","c","d","e", "f", "g", "h", "i",
-//   "j","k","l","m","n","o","p","q","r","s","t","u",
-//   "v","w","x","y","z"];
-//
-//   for(var j=0; j<alphabet.length; j++){
-//     var letterImg = $('<img>');
-//     letterImg.attr('src', "images/tiles/tiles-"+alphabet[j]+".svg");
-//     letterImg.attr('id', alphabet[j]);
-//     letterImg.attr('value', alphabet[j]);
-//     letterImg.attr('class', "letter");
-//
-//
-//     // $(".letters").append(letterImg);
-//   }
-//
-// }
 
-//generate letter using distribution
 
 function appendTile(letter){
   var letterImg = $('<img>');
@@ -222,17 +203,51 @@ function appendTile(letter){
 
 }
 
-function peel(){
 
-  var random = Math.floor(Math.random()*17);
-  // var random_letter = Math.random()*10;
-  // console.log(random);
+//similar to bubble sort but randomizes
+function shuffle(array){
+  var currentIndex = array.length;
+  var tempValue;
+  var randomIndex;
+
+  //while there are still elements to shuffle
+  while (currentIndex !== 0){
+    //picks a remaining element
+    randomIndex = Math.floor(Math.random()*currentIndex);
+    currentIndex -= 1;
+
+    tempValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = tempValue;
+  }
+
+  return array;
+}
+
+
+function peel(){
 
   var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
 
+  var shuffledArray = shuffle(letterArray);
 
-  appendTile(letterArray[random]);
-}
+  //if there's nothing in the shuffledArray, it doesn't peel anymore
+  if(shuffledArray.length<1){
+    return;
+  }
+
+  var random = Math.floor(Math.random()*(shuffledArray.length));
+
+  var selectedLetter = shuffledArray[random];
+
+  //gets index of the selected letter
+  var index = shuffledArray.indexOf(selectedLetter);
+
+  //removes the selected letter from array
+  shuffledArray.splice(index, 1);
+  appendTile(selectedLetter);
+
+};
 
 
 
@@ -241,25 +256,22 @@ function peel(){
 // RUNNING
 $(document).ready(function(){
 
-    // tileImageAdd();
-
-    setEventListeners();
-
     for(var i=0; i<6;i++){
       peel();
     }
 
+    setEventListeners();
     findLetters();
 
 
     $(".peel-btn").click(function(){
-        peel();
-        // console.log(Board);
+        findLetters();
         dictionaryCheck();
+        peel();
+        setEventListeners();
+        // console.log(Board);
+
     });
-
-
-
 
 
 });

@@ -1,6 +1,21 @@
 # nanagrams
 ## A game that's like Bananagrams...but one-player....and nana-themed.
 
+02/04/2016
+
+TODOs:
+1. Get drag & drop functionality to work for the tiles
+2. Access Merriam-Webster's API for a real dictionary :)
+3. Peel & Dump buttons should function properly.
+4. Get a timer and stop the game when it runs out.
+5. Make it nana-themed?
+
+
+02/03/2016
+
+* The game is now able to search vertically and horizontally for words and check whether the word is in the temporary dictionary array.
+* Letters can automatically & randomly populate - currently, there are only 17 since the board has only 36 slots.
+
 02/02/2016
 
 * Wrote 'user stories' to organize TODOs: https://trello.com/b/geCES9ro/nanagrams

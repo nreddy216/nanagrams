@@ -1,10 +1,9 @@
-//selects the ID of the letter
-//saves the ID as 'last selected letter'
-//the next place clicked then inputs the image into the box
-
-//WORKING!!!!
+//CURRENTLY WORKING
 var lastClicked;
 
+//you can click on a letter,
+//click on the spot you want the letter to go,
+//repeat
 function setEventListeners() {
   $(".letter").on("click", function(event) {
     lastClicked = event.target;
@@ -88,7 +87,7 @@ function updateBoard(index){
 //if so, return true, if not, return false
 
 //fake dictionary
-var dictionaryArray = ["ban", "nab", "an"];
+var dictionaryArray = ["ban", "nab", "an", "sad"];
 
 //only searches for word in the first column ("row")
 function findLetters(){

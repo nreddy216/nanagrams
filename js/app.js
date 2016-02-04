@@ -88,7 +88,7 @@ function updateBoard(index){
 //if so, return true, if not, return false
 
 //fake dictionary
-var dictionaryArray = ["ban", "nab"];
+var dictionaryArray = ["ban", "nab", "an"];
 
 //only searches for word in the first column ("row")
 function findLetters(){
@@ -149,15 +149,12 @@ function wordLoggerHorizontal(){
   var inc = 1;
 
   //goes through the whole board column by column, left > right
+  //NUMBERS COUNT DOWN VERTICALLY so to move horiz, +6 is necessary
   while(high<=36 && low<=6){
     var word = "";
     for(var i=1+low; i<=31+high; i+=6){
       if(typeof Board[i]==="string"){
-          // DEFAULT
           word+=Board[i];
-
-      // WANT TO CHECK WHETHER THE BOX TO THE LEFT IS EMPTY
-
       }
     }
     low = low + inc;
@@ -169,23 +166,24 @@ function wordLoggerHorizontal(){
 
   }
 
-  // console.log(allWordsArray);
   return allWordsArray;
 }
 
 function dictionaryCheck(){
-  //CHECKS IF WORD IS IN DICTIONARY
-
+  //concatenates both horiz and vert word arrays
   allWordsArrayVert = wordLoggerVertical();
   allWordsArrayHoriz = wordLoggerHorizontal();
   allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
   for(var i=0; i<allWordsArray.length;i++){
+    //checks whether the word is in the dictionary
     if(dictionaryArray.indexOf(allWordsArray[i])> -1){
       console.log("This word is correct: " + allWordsArray[i]);
+      return true;
     }
     else{
       console.log("This word is not correct: " + allWordsArray[i]);
+      return false;
     }
   }
 
@@ -193,6 +191,48 @@ function dictionaryCheck(){
 
 }
 
+// function tileImageAdd(){
+//
+//   var alphabet = ["a","b","c","d","e", "f", "g", "h", "i",
+//   "j","k","l","m","n","o","p","q","r","s","t","u",
+//   "v","w","x","y","z"];
+//
+//   for(var j=0; j<alphabet.length; j++){
+//     var letterImg = $('<img>');
+//     letterImg.attr('src', "images/tiles/tiles-"+alphabet[j]+".svg");
+//     letterImg.attr('id', alphabet[j]);
+//     letterImg.attr('value', alphabet[j]);
+//     letterImg.attr('class', "letter");
+//
+//
+//     // $(".letters").append(letterImg);
+//   }
+//
+// }
+
+//generate letter using distribution
+
+function appendTile(letter){
+  var letterImg = $('<img>');
+  letterImg.attr('src', "images/tiles/tiles-"+letter+".svg");
+  letterImg.attr('id', letter);
+  letterImg.attr('value', letter);
+  letterImg.attr('class', "letter");
+  $(".letters").append(letterImg);
+
+}
+
+function peel(){
+
+  var random = Math.floor(Math.random()*17);
+  // var random_letter = Math.random()*10;
+  // console.log(random);
+
+  var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
+
+
+  appendTile(letterArray[random]);
+}
 
 
 
@@ -201,13 +241,23 @@ function dictionaryCheck(){
 // RUNNING
 $(document).ready(function(){
 
+    // tileImageAdd();
+
     setEventListeners();
 
-    $(".title").click(function(){
-        findLetters();
-        dictionaryCheck();
+    for(var i=0; i<6;i++){
+      peel();
+    }
+
+    findLetters();
+
+
+    $(".peel-btn").click(function(){
+        peel();
         // console.log(Board);
+        dictionaryCheck();
     });
+
 
 
 

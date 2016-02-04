@@ -10,7 +10,7 @@
       }
     </style>
   </defs>
-  <title>tile</title>
+  <title>tiles</title>
   <rect class="a" width="60" height="60" rx="4.7" ry="4.7"/>
-  <path class="b" d="M19.15,10.2H42.2v3.94h-19V26.74H42v3.94H23.17v15.8H42v3.94H19.15V10.2Z"/>
+  <path class="b" d="M17.56,14.08V10.2H38.78L22,46.48h16v3.94H15.76L32.71,14.08H17.56Z"/>
 </svg>

@@ -12,6 +12,18 @@ body{
   color: white;
 
   font-size: 40px;
+
+  text-shadow: 1px 1px 5px  black;
+}
+
+.word-result{
+  text-align: center;
+  font-family: Avenir;
+  color: white;
+
+  font-size: 20px;
+
+  text-shadow: 1px 1px 5px  black;
 }
 
 .board{
@@ -71,7 +83,9 @@ body{
 
 .peel-btn{
   /*border: 2px solid #000;*/
-  /*background-color: #8565c4;*/
+
+  border-radius: 5px;
+
   background-image: url(../images/buttons/happygma.png);
   background-size: cover;
   color: white;
@@ -79,31 +93,57 @@ body{
   margin-right: 50px;
   text-align: center;
 
+  padding: 20px;
+
   /*visibility: hidden;;*/
+}
+
+.peel-btn-purple{
+  background-color: #8565c4;
+}
+
+.peel-btn-grey{
+  background-color: #d3d3d3;
+}
+
+.greenpeel{
+  background-color: green;
 }
 
 .peel-btn #peel-txt{
 
       color: white;
 
+
       position: relative;
       top: 50%;
-      transform: translateY(-120%);
+      transform: translateY(40%);
 
       font-size: 30px;
       font-family: Avenir;
+
+      text-shadow: 1px 1px 5px  black;
 }
 
 .dump-btn{
-  background-color: #2565c4;
+
   border-radius: 5px;
 
+  width: 200px;
   background-image: url(../images/buttons/sadgma.png);
   background-size: cover;
 
   float: left;
   margin-left: 20px;
   text-align: center;
+}
+
+.normaldump{
+  background-color: #2565c4;
+}
+
+.hoverdump{
+  background-color: red;
 }
 
 .dump-btn #dump-txt{
@@ -113,10 +153,12 @@ body{
 
     position: relative;
     top: 50%;
-    transform: translateY(-120%);
+    transform: translateY(-50%);
 
     font-size: 30px;
     font-family: Avenir;
+
+    text-shadow: 1px 1px 5px  black;
 }
 
 .letter {

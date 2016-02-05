@@ -1,4 +1,4 @@
-//CURRENTLY WORKING
+//INITIAL METHOD BEFORE DRAG AND DROP
 // var lastClicked;
 
 //you can click on a letter,
@@ -30,13 +30,13 @@ function dragAndDropInit(){
 
   $(".cell").droppable({
     drop: function(event, ui){
-      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
+      ui.draggable.detach().appendTo($(this));
     }
   });
 
   $(".tile-pile").droppable({
     drop: function(event, ui){
-      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
+      ui.draggable.detach().appendTo($(this));
     }
   });
 };
@@ -69,9 +69,6 @@ function updateBoard(index){
       Board[index]=null;
   }
 }
-
-
-
 
 
 //only searches for word in the first column
@@ -171,10 +168,8 @@ function wordCorrect(){
 
   for(var i=0; i<allWordsArray.length;i++){
     //checks whether the word is in the dictionary API
-
-      if(isWord(allWordsArray[i], notifyUser)==false){
-        $(".tile-pile").append("<p>" + allWordsArray[i] + " is not a word</p>");
-      }
+      isWord(allWordsArray[i], notifyUser);
+      console.log(isWord(allWordsArray[i], notifyUser));
   }
 
 }
@@ -182,12 +177,13 @@ function wordCorrect(){
 //callback function for AJAX request
 function notifyUser(isWord) {
   if(isWord){
-    console.log("This word is real");
+    // console.log("This word is real");
+    $('.word-result').html("WOOPAH! Keep moving!");
     return true;
 
 
   } else{
-    console.log("This word is not real");
+    $('.word-result').html("At least one o' these ain't a word, SONNY BOY! No peeling.");
     return false;
     // $(".letter").toggleClass("wrong");
 
@@ -253,12 +249,39 @@ function appendTile(letter){
 
 //GLOBAL LETTER ARRAY
 var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
-var shuffledArray = shuffle(letterArray);
+
+var allLetters = {
+  a:2,
+  d:1,
+  e: 3,
+  g: 1,
+  i: 2,
+  l: 1,
+  n: 1,
+  o: 2,
+  r: 1,
+  s: 1,
+  t: 1,
+  u: 1
+};
+
+function allLettersSum(object){
+  var total = 0;
+  for(key in object){
+    total += object[key];
+  }
+  return total;
+}
+
+
 
 function peel(){
+  var shuffledArray = shuffle(letterArray);
 
   //if there's nothing in the shuffledArray, it doesn't peel anymore
-  if(shuffledArray.length<1){
+  if(allLettersSum(allLetters)<1){
+    $('.peel-btn').removeClass("peel-btn-purple");
+    $('.peel-btn').addClass("peel-btn-grey");
     return;
   }
   else{
@@ -271,6 +294,9 @@ function peel(){
 
     //removes the selected letter from array
     shuffledArray.splice(index, 1);
+
+    allLetters[selectedLetter]-=1;
+
     appendTile(selectedLetter);
 
   }
@@ -280,25 +306,49 @@ function peel(){
 
 };
 
+var dumpedLetter;
+
 function dump(){
   $(".letter").draggable(
     {
       cursor: 'move',
       helper: "clone"
-
     }
   );
 
 
   $(".dump-btn").droppable({
+    activeClass: "ui-state-hover",
+    hoverClass: "hoverdump",
+    over: function(event, ui){
+      console.log(ui.draggable.prop('id'));
+
+
+      $(this).addClass("hoverdump");
+      $(this).removeClass("normaldump");
+    },
     drop: function(event, ui){
-      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
-      ui.draggable.fadeOut();
-      if(shuffledArray.length>0){
-        console.log("CURRENT " + shuffledArray);
-        for(var i=0; i<3; i++){
-          peel();
-        }
+
+
+      // console.log(ui.draggable + " DRAGGABLE DUMP")
+      $(this).addClass("normaldump");
+      $(this).removeClass("hoverdump");
+
+      // console.log(allLettersSum(allLetters));
+      // console.log(allLetters);
+
+      if(allLettersSum(allLetters)>1){
+        //push the dumped letter back onto the array + object
+        letterArray.push(ui.draggable.prop('id'));
+        allLetters[ui.draggable.prop('id')]+=1;
+
+        //detach and fadeout
+        ui.draggable.detach();
+        ui.draggable.fadeOut("slow",function(){
+          for(var i=0; i<3; i++){
+            peel();
+          }
+        });
       }
       else{
         $('.dump-btn').css("background-color", "grey");
@@ -310,9 +360,15 @@ function dump(){
 
 }
 
+function win(){
+}
+
 
 // RUNNING
 $(document).ready(function(){
+
+  //# of tiles
+  console.log(allLettersSum(allLetters));
 
     for(var i=0; i<6;i++){
       peel();
@@ -326,6 +382,8 @@ $(document).ready(function(){
         findLetters();
         peel();
 
+        console.log(allLettersSum(allLetters));
+        console.log("word Correct" + wordCorrect());
         wordCorrect();
 
 

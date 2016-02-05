@@ -169,22 +169,30 @@ function wordCorrect(){
   for(var i=0; i<allWordsArray.length;i++){
     //checks whether the word is in the dictionary API
       isWord(allWordsArray[i], notifyUser);
-      console.log(isWord(allWordsArray[i], notifyUser));
+      // console.log("WORD CHECK " + allWordsArray[i]);
+
+      if(notifyUser(isWord(allWordsArray[i]))===false){
+        notWordsArray.push(allWordsArray[i]);
+      }
   }
 
 }
 
+var notWordsArray = [];
+
 //callback function for AJAX request
 function notifyUser(isWord) {
-  if(isWord){
+if(isWord===false){
+  $('.word-result').html("At least one o' these ain't a word, SONNY BOY! No peeling.<p></p>");
+  $('.word-result').toggleClass("wrong");
+  return false;
+}
+else{
     // console.log("This word is real");
-    $('.word-result').html("WOOPAH! Keep moving!");
+    $('.word-result').html("WOOPAH! Keep moving!<p></p>");
+    $('.word-result').removeClass("wrong");
     return true;
 
-
-  } else{
-    $('.word-result').html("At least one o' these ain't a word, SONNY BOY! No peeling.");
-    return false;
     // $(".letter").toggleClass("wrong");
 
   }
@@ -200,8 +208,8 @@ function isWord(searchTerm, cb) {
     url: endpoint,
     dataType: 'json',
     success: function(data) {
-      console.log("results:", data.length);
-      console.log("word: "+ searchTerm);
+      // console.log("results:", data.length);
+      // console.log("word: "+ searchTerm);
       if(data.length > 0) {
         cb(true);
       } else {
@@ -361,6 +369,16 @@ function dump(){
 }
 
 function win(){
+  total=0;
+  for(var key in Board){
+    if(Board[key]!==null){
+      total+=1;
+    }
+    console.log("BOARD KEY WIN " + Board[key]);
+  }
+  if(total===17){
+    $(".title").html("The board is filled!");
+  }
 }
 
 
@@ -379,12 +397,14 @@ $(document).ready(function(){
     dump();
 
     $(".peel-btn").click(function(){
+        win();
         findLetters();
         peel();
 
         console.log(allLettersSum(allLetters));
-        console.log("word Correct" + wordCorrect());
         wordCorrect();
+
+        console.log("THESE ARENT WORDS " + notWordsArray);
 
 
     });

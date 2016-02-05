@@ -1,14 +1,22 @@
 # nanagrams
 ## A game that's like Bananagrams...but one-player....and nana-themed.
 
-02/04/2016
+I used HTML, CSS, JavaScript, jQuery, and the WordNik API to create this game.
+
+Currently this game is under construction, so the code is messy and redundant. If you would like to contribute in the future, contact me!
 
 TODOs:
-1. Get drag & drop functionality to work for the tiles
-2. Access Merriam-Webster's API for a real dictionary :)
-3. Peel & Dump buttons should function properly.
-4. Get a timer and stop the game when it runs out.
-5. Make it nana-themed?
+* Timer!
+* The "WIN" function does not work
+* Styling updates and CSS bug fixes
+* Refactor ( a lot! )
+
+02/04/2016
+
+* The tiles are able to drag & drop
+* The program accesses the Wordnik API to check whether the words are legitimate.
+* New additions: Peel & Dump buttons. They ~mostly~ work, but need to be tweaked.
+* I made it nana-themed. It looks gloriously hideous. You're welcome.
 
 
 02/03/2016

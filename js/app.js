@@ -18,7 +18,7 @@
 
 // DRAG AND DROP VERSION USING JQUERY UI
 
-function init(){
+function dragAndDropInit(){
 
   $(".letter").draggable(
     {
@@ -275,6 +275,7 @@ function peel(){
 
   }
 
+  dragAndDropInit();
   console.log(shuffledArray);
 
 };
@@ -288,7 +289,8 @@ function dump(){
     }
   );
 
-  $("#dump-txt").droppable({
+
+  $(".dump-btn").droppable({
     drop: function(event, ui){
       ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
       ui.draggable.fadeOut();
@@ -300,6 +302,7 @@ function dump(){
       }
       else{
         $('.dump-btn').css("background-color", "grey");
+
       }
     }
   });
@@ -315,19 +318,19 @@ $(document).ready(function(){
       peel();
     }
 
-    init();
+    dragAndDropInit();
     findLetters();
-
+    dump();
 
     $(".peel-btn").click(function(){
         findLetters();
         peel();
-        init();
+
         wordCorrect();
 
 
     });
 
-    dump();
+
 
 });

@@ -10,8 +10,16 @@ body{
 
 .board{
   text-align: center;
-  color: #0f9;
-  min-width: 500px;
+  margin: 0px auto;
+  position: relative;
+  /*min-width: 500px;*/
+
+  border-radius: 10px;
+
+  background-color: grey;
+
+  width: 400px;
+
 }
 
 .col{
@@ -28,7 +36,7 @@ body{
   margin-bottom: 3px;
 
   /*position: relative;
-  display: inline-block;*/
+  /*display: inline-block;*/*/
 }
 
 .cell img{
@@ -59,23 +67,45 @@ body{
   right: 20px;
   text-align: center;
 
-  font-size: 30px;
-  font-family: Avenir;
   /*visibility: hidden;;*/
+}
+
+.peel-btn #peel-txt{
+
+      color: white;
+
+      position: relative;
+      top: 50%;
+      transform: translateY(-120%);
+
+      font-size: 30px;
+      font-family: Avenir;
 }
 
 .dump-btn{
   background-color: #2565c4;
   border-radius: 5px;
-  color: white;
+
   width: 200px;
   height: 70px;
   float: left;
   right: 20px;
   text-align: center;
 
-  font-size: 30px;
-  font-family: Avenir;
+
+}
+
+.dump-btn #dump-txt{
+
+
+    color: white;
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-120%);
+
+    font-size: 30px;
+    font-family: Avenir;
 }
 
 .letter {
@@ -95,4 +125,16 @@ body{
   width: 60px;
   /*white-space: nowrap;*/
 
+}
+
+/*//when word is wrong*/
+.wrong{
+  -webkit-animation: pulse 1.5s ease-in-out infinite alternate;
+   -moz-animation:  pulse 1.5s ease-in-out infinite alternate;
+   animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { box-shadow:0px 0px 10px 3px magenta; }
+  to { box-shadow:0px 0px 20px 5px magenta; }
 }

@@ -1,51 +1,45 @@
 //CURRENTLY WORKING
-var lastClicked;
+// var lastClicked;
 
 //you can click on a letter,
 //click on the spot you want the letter to go,
 //repeat
-function setEventListeners() {
-  $(".letter").on("click", function(event) {
-    lastClicked = event.target;
-  });
-  $(".cell").on("click", function(event) {
-    $(event.target).append(lastClicked)
-    console.log(lastClicked);
-  })
-}
+// function setEventListeners() {
+//   $(".letter").on("click", function(event) {
+//     lastClicked = event.target;
+//   });
+//   $(".cell").on("click", function(event) {
+//     $(event.target).append(lastClicked)
+//     console.log(lastClicked);
+//   })
+// }
 
 //////////////////////////////////////////
 
 // DRAG AND DROP VERSION USING JQUERY UI
 
-// function init(){
-//   $(".letter img").draggable(
-//     {
-//       containment: '.board',
-//       cursor: 'move',
-//       snap: ".cell",
-//     }
-//   );
+function init(){
 
-//   $(".cell").droppable({
-//     drop: function(event, ui){
-//       var cell = $(this);
-//       // $(this).find("img");
-//       // $(this).append("hi");
-//       handleDropEvent(event, ui, cell);
-//     }
-//   });
-// };
-//
-// function handleDropEvent(event, ui, cell){
-//   var tile = ui.draggable;
-//
-//   cell.append(tile);
-//   console.log(cell);
-//   // alert("The square with ID " + draggable.attr('id') + " was dropped on me!");
-// }
-//
-//
+  $(".letter").draggable(
+    {
+      cursor: 'move',
+      helper: "clone"
+
+    }
+  );
+
+  $(".cell").droppable({
+    drop: function(event, ui){
+      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
+    }
+  });
+
+  $(".tile-pile").droppable({
+    drop: function(event, ui){
+      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
+    }
+  });
+};
 
 /////////////////////////////////////////////
 
@@ -167,8 +161,6 @@ function wordLoggerHorizontal(){
     return allWordsArray;
 }
 
-//fake dictionary
-// var dictionaryArray = ["ban", "nab", "an", "sad"];
 
 function wordCorrect(){
   //concatenates both horiz and vert word arrays
@@ -176,23 +168,28 @@ function wordCorrect(){
   allWordsArrayHoriz = wordLoggerHorizontal();
   allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
-  // var dictionary = returnDict();
 
   for(var i=0; i<allWordsArray.length;i++){
-    //checks whether the word is in the dictionary
-    // if(dictionary.indexOf(allWordsArray[i])> -1){
-      isWord(allWordsArray[i], notifyUser);
+    //checks whether the word is in the dictionary API
+
+      if(isWord(allWordsArray[i], notifyUser)===true){
+
+      }
   }
 
 }
 
+//callback function for AJAX request
 function notifyUser(isWord) {
   if(isWord){
-    console.log("This word is correct");
-    // return true;
+    return true;
+      // console.log("This word is real");
+
   } else{
-    console.log("This word is not correct");
-    // return false;
+    return false;
+    // $(".letter").toggleClass("wrong");
+    // console.log("This word is not real");
+
   }
 }
 
@@ -206,7 +203,8 @@ function isWord(searchTerm, cb) {
     url: endpoint,
     dataType: 'json',
     success: function(data) {
-      console.log("results:", data.length)
+      console.log("results:", data.length);
+      console.log("word: "+ searchTerm);
       if(data.length > 0) {
         cb(true);
       } else {
@@ -254,11 +252,9 @@ function appendTile(letter){
 
 //GLOBAL LETTER ARRAY
 var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
-
+var shuffledArray = shuffle(letterArray);
 
 function peel(){
-
-  var shuffledArray = shuffle(letterArray);
 
   //if there's nothing in the shuffledArray, it doesn't peel anymore
   if(shuffledArray.length<1){
@@ -277,7 +273,34 @@ function peel(){
     appendTile(selectedLetter);
 
   }
+
+  console.log(shuffledArray);
+
 };
+
+function dump(){
+  $(".letter").draggable(
+    {
+      cursor: 'move',
+      helper: "clone"
+
+    }
+  );
+
+  $("#dump-txt").droppable({
+    drop: function(event, ui){
+      ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
+      ui.draggable.fadeOut();
+      if(shuffledArray.length>0){
+        for(var i=0; i<3; i++){
+          peel();
+        }
+      }
+    }
+  });
+
+
+}
 
 
 // RUNNING
@@ -287,16 +310,19 @@ $(document).ready(function(){
       peel();
     }
 
-    setEventListeners();
+    init();
     findLetters();
 
 
     $(".peel-btn").click(function(){
         findLetters();
         peel();
+        init();
         wordCorrect();
-        setEventListeners();
-        // console.log(Board);
+
 
     });
+
+    dump();
+
 });

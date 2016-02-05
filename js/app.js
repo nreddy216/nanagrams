@@ -381,9 +381,20 @@ function win(){
   }
 }
 
+function timer(){
+  var day = new Date();
+  var today = day.now();
+  $('.clock').countdown(today + "00:00:40", function(event) {
+    var totalSeconds = event.offset.seconds;
+    $(this).html(event.strftime(totalSeconds + '%S sec'));
+  });
+}
+
 
 // RUNNING
 $(document).ready(function(){
+
+  // timer();
 
   //# of tiles
   console.log(allLettersSum(allLetters));
@@ -397,7 +408,7 @@ $(document).ready(function(){
     dump();
 
     $(".peel-btn").click(function(){
-        win();
+        // win();
         findLetters();
         peel();
 

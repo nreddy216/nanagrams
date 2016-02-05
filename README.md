@@ -1,15 +1,42 @@
 # nanagrams
-## A game that's like Bananagrams...but one-player....and nana-themed.
 
-I used HTML, CSS, JavaScript, jQuery, and the WordNik API to create this game.
+##Overview
+A game that's like Bananagrams...but one-player....and nana-themed.
 
-Currently this game is under construction, so the code is messy and redundant. If you would like to contribute in the future, contact me!
+Instructions:
+* Create a crossword using the tiles below.
+* If you get stuck, drag your unwanted tile to DUMP.
+* Once you have used up your tiles, click PEEL to get another tile.
+
+##Planning
+
+I decided to use Trello to organize my user stories and created a wireframe in Balsamiq.
+
+Wireframe of Nanagrams
+![Mockup](http://s16.postimg.org/6h4lvru1x/nanagrams_mockup.png)
+
+##Technology
+
+* HTML/CSS
+* JavaScript, jQuery, & jQuery UI for the drag/drop functionality
+* WordNik API
+
+##Future features & TODOs
 
 TODOs:
 * Timer!
 * The "WIN" function does not work
+* START Button
+* WIN End Screen
 * Styling updates and CSS bug fixes
 * Refactor ( a lot! )
+
+Other Features:
+* Animated grandmas
+* Make a nonsense poem using the words they made
+* Highlight the tiles RED when the word is wrong & Highlight the tiles GREENish when the word is right
+
+Timeline:
 
 02/04/2016
 
@@ -29,8 +56,3 @@ TODOs:
 * Wrote 'user stories' to organize TODOs: https://trello.com/b/geCES9ro/nanagrams
 * Created a temporary board & a few temporary tiles
 * Click functionality included: When a player clicks a tile then clicks a cell, the tile appends to the cell.
-
-02/01/2016
-
-Wireframe of Nanagrams
-![Mockup](http://s16.postimg.org/6h4lvru1x/nanagrams_mockup.png)

@@ -54,6 +54,8 @@ body{
   padding: 10px;
   /*position: absolute;*/
   bottom: 0px;
+
+  display: inline-block;
 }
 
 .peel-btn{
@@ -91,8 +93,6 @@ body{
   float: left;
   right: 20px;
   text-align: center;
-
-
 }
 
 .dump-btn #dump-txt{

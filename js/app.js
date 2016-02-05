@@ -172,8 +172,8 @@ function wordCorrect(){
   for(var i=0; i<allWordsArray.length;i++){
     //checks whether the word is in the dictionary API
 
-      if(isWord(allWordsArray[i], notifyUser)===true){
-
+      if(isWord(allWordsArray[i], notifyUser)==false){
+        $(".tile-pile").append("<p>" + allWordsArray[i] + " is not a word</p>");
       }
   }
 
@@ -182,13 +182,14 @@ function wordCorrect(){
 //callback function for AJAX request
 function notifyUser(isWord) {
   if(isWord){
+    console.log("This word is real");
     return true;
-      // console.log("This word is real");
+
 
   } else{
+    console.log("This word is not real");
     return false;
     // $(".letter").toggleClass("wrong");
-    // console.log("This word is not real");
 
   }
 }
@@ -292,9 +293,13 @@ function dump(){
       ui.draggable.detach().css({top: 0, left: 0}).appendTo($(this));
       ui.draggable.fadeOut();
       if(shuffledArray.length>0){
+        console.log("CURRENT " + shuffledArray);
         for(var i=0; i<3; i++){
           peel();
         }
+      }
+      else{
+        $('.dump-btn').css("background-color", "grey");
       }
     }
   });

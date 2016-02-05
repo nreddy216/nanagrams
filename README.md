@@ -36,7 +36,7 @@ Other Features:
 * Make a nonsense poem using the words they made
 * Highlight the tiles RED when the word is wrong & Highlight the tiles GREENish when the word is right
 
-Timeline:
+##Timeline:
 
 02/04/2016
 
@@ -56,3 +56,9 @@ Timeline:
 * Wrote 'user stories' to organize TODOs: https://trello.com/b/geCES9ro/nanagrams
 * Created a temporary board & a few temporary tiles
 * Click functionality included: When a player clicks a tile then clicks a cell, the tile appends to the cell.
+
+##Contributors
+
+Big shout out to Ilias for helping me figure out the word API and help plan my project!
+
+If you would like to contribute to this project in the future, email me at nreddy216@gmail!

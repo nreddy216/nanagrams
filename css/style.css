@@ -1,6 +1,5 @@
 body{
-  /*background-color: #1a1a1a;*/
-  background-image: url(../images/bg/grandmabettypeacesign.jpg);
+  background-color: #1a1a1a;
   background-repeat: repeat;
   background-size: 700px;
 
@@ -86,7 +85,7 @@ body{
 
   border-radius: 5px;
 
-  background-image: url(../images/buttons/happygma.png);
+  /*background-image: url(../images/buttons/happygma.png);*/
   background-size: cover;
   color: white;
   float: right;
@@ -95,6 +94,7 @@ body{
 
   padding: 20px;
 
+  height: 50px;
   /*visibility: hidden;;*/
 }
 
@@ -116,8 +116,8 @@ body{
 
 
       position: relative;
-      top: 50%;
-      transform: translateY(40%);
+      top: -50%;
+      /*transform: translateY(-40%);*/
 
       font-size: 30px;
       font-family: Avenir;
@@ -130,7 +130,7 @@ body{
   border-radius: 5px;
 
   width: 200px;
-  background-image: url(../images/buttons/sadgma.png);
+  /*background-image: url(../images/buttons/sadgma.png);*/
   background-size: cover;
 
   float: left;
@@ -152,8 +152,8 @@ body{
     color: white;
 
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    /*top: 60%;
+    transform: translateY(-50%);*/
 
     font-size: 30px;
     font-family: Avenir;

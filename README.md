@@ -59,6 +59,6 @@ Other Features:
 
 ##Contributors
 
-Big shout out to Ilias for helping me figure out the word API and help plan my project!
+Shout out to Ilias
 
-If you would like to contribute to this project in the future, email me at nreddy216@gmail!
+If you would like to contribute to this project in the future, fork it and submit a pull request.

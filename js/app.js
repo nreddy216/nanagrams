@@ -1,3 +1,37 @@
+// WHEN DOCUMENT IS CALLED
+$(document).ready(function(){
+
+  generateBoard(8);
+
+  //# of tiles
+  // console.log(allLettersSum(allLetters));
+
+    // for(var i=0; i<6;i++){
+    //   peel();
+    // }
+    //
+    // dragAndDropInit();
+    // findLetters();
+    // dump();
+    //
+    // $(".peel-btn").click(function(){
+    //     // win();
+    //     findLetters();
+    //     peel();
+    //
+    //     console.log(allLettersSum(allLetters));
+    //     wordCorrect();
+    //
+    //     console.log("THESE ARENT WORDS " + notWordsArray);
+    //
+    //
+    // });
+
+
+
+});
+
+
 //////////////////////////////////////////
 
 // DRAG AND DROP VERSION USING JQUERY UI
@@ -31,16 +65,49 @@ function dragAndDropInit(){
   });
 };
 
-/////////////////////////////////////////////
+///Generate board made of divs
+//==============================================================================
 
-///2D ARRAY CREATION
-
-//36 value board - global variable
+//Global variables that will be used throughout entire program
 var Board = {};
 
-for(var i=1; i<=36; i++){
+var boardDimension = 8; //can be a prompt for user to choose their own board size
+var boardSize = Math.pow(boardDimension, 2); //squares the board dim to get the whole size
+
+for(var i=1; i<=boardSize; i++){
   Board[i] = null;
 }
+
+//generates divs to create board
+function generateBoard(boardDimension){
+  var $board = $('.board');
+
+  //need this in order to increment up to get the right div id numbers
+  var low= 0;
+  var high = 0;
+  var inc = boardDimension;
+
+  //while the highest is less than the board size
+  while(high < boardSize){
+    for(var i=1; i<=boardDimension; i++){
+      var $col = $("<div class='col col-" + i + "'></div>");
+      for(var j=1 + low ; j<=boardDimension + high; j++){
+        var $cell = $("<div class='cell' id="+ j + " ></div>");
+        $col.append($cell);
+      }
+
+      $board.append($col);
+
+      low = low + inc;
+      high = high + inc;
+    }
+ }
+
+}
+
+///2D ARRAY CREATION
+//==============================================================================
+
 
 //todo - if the index is now empty (and was assigned a letter),
 //then make it empty again
@@ -242,9 +309,6 @@ function appendTile(letter){
 
 }
 
-
-
-
 //GLOBAL LETTER ARRAY
 var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
 
@@ -382,37 +446,3 @@ function timer(){
   //   $(this).html(event.strftime(totalSeconds + '%S sec'));
   // });
 }
-
-
-// RUNNING
-$(document).ready(function(){
-
-  // timer();
-
-  //# of tiles
-  console.log(allLettersSum(allLetters));
-
-    for(var i=0; i<6;i++){
-      peel();
-    }
-
-    dragAndDropInit();
-    findLetters();
-    dump();
-
-    $(".peel-btn").click(function(){
-        // win();
-        findLetters();
-        peel();
-
-        console.log(allLettersSum(allLetters));
-        wordCorrect();
-
-        console.log("THESE ARENT WORDS " + notWordsArray);
-
-
-    });
-
-
-
-});

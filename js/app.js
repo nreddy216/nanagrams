@@ -1,39 +1,29 @@
-//INITIAL METHOD BEFORE DRAG AND DROP
-// var lastClicked;
-
-//you can click on a letter,
-//click on the spot you want the letter to go,
-//repeat
-// function setEventListeners() {
-//   $(".letter").on("click", function(event) {
-//     lastClicked = event.target;
-//   });
-//   $(".cell").on("click", function(event) {
-//     $(event.target).append(lastClicked)
-//     console.log(lastClicked);
-//   })
-// }
-
 //////////////////////////////////////////
 
 // DRAG AND DROP VERSION USING JQUERY UI
 
 function dragAndDropInit(){
 
+  //allows you to drag the letter tile
   $(".letter").draggable(
     {
+      //options that jquery UI allows
       cursor: 'move',
       helper: "clone"
 
     }
   );
 
+  //makes each cell able to accept the "draggable" letter
   $(".cell").droppable({
     drop: function(event, ui){
+      //detach allows letter to be moved around after it's placed in a cell
+      //letter appends to cell after
       ui.draggable.detach().appendTo($(this));
     }
   });
 
+  //this allows the letter on the cell to be dragged back to the "tile pile"
   $(".tile-pile").droppable({
     drop: function(event, ui){
       ui.draggable.detach().appendTo($(this));
@@ -45,7 +35,7 @@ function dragAndDropInit(){
 
 ///2D ARRAY CREATION
 
-//36 value board - NEEDED?
+//36 value board - global variable
 var Board = {};
 
 for(var i=1; i<=36; i++){
@@ -382,12 +372,15 @@ function win(){
 }
 
 function timer(){
-  var day = new Date();
-  var today = day.now();
-  $('.clock').countdown(today + "00:00:40", function(event) {
-    var totalSeconds = event.offset.seconds;
-    $(this).html(event.strftime(totalSeconds + '%S sec'));
-  });
+
+  // setTimeout(1000);
+
+  // var day = new Date();
+  // var today = day.now();
+  // $('.clock').countdown(today + "00:00:40", function(event) {
+  //   var totalSeconds = event.offset.seconds;
+  //   $(this).html(event.strftime(totalSeconds + '%S sec'));
+  // });
 }
 
 

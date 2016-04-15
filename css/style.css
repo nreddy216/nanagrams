@@ -1,16 +1,35 @@
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    /*background-color: #f9f9f9;*/
+}
+
 body{
-  background-color: #333333;
+  background-color: #333333!important;
   background-repeat: repeat;
   background-size: 700px;
 
 }
 
-.title{
+.header{
   text-align: center;
   color: #feda00;
   font-size: 60px;
   margin: 0px;
   font-family: 'Monoton', cursive;
+}
+
+.help-btn{
+  float: left;
+
+}
+
+
+.title{
 }
 
 .word-result{

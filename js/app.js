@@ -13,6 +13,11 @@ for(var i=1; i<=boardSize; i++){
 // WHEN DOCUMENT IS CALLED
 $(document).ready(function(){
 
+  //instructions modal
+  $("#myBtn").click(function(){
+    $("#myModal").modal();
+  });
+
   generateBoard(boardDimension);
   //# of tiles
 

@@ -1,38 +1,52 @@
+//Global variables that will be used throughout entire program
+var Board = {};
+
+var boardDimension = 7; //can be a prompt for user to choose their own board size
+var boardSize = Math.pow(boardDimension, 2); //squares the board dim to get the whole size
+
+for(var i=1; i<=boardSize; i++){
+  Board[i] = null;
+}
+
+//==============================================================================
+
 // WHEN DOCUMENT IS CALLED
 $(document).ready(function(){
 
-  generateBoard(8);
-
+  generateBoard(boardDimension);
   //# of tiles
-  // console.log(allLettersSum(allLetters));
 
-    // for(var i=0; i<6;i++){
-    //   peel();
-    // }
-    //
-    // dragAndDropInit();
-    // findLetters();
-    // dump();
-    //
-    // $(".peel-btn").click(function(){
-    //     // win();
-    //     findLetters();
-    //     peel();
-    //
-    //     console.log(allLettersSum(allLetters));
-    //     wordCorrect();
-    //
-    //     console.log("THESE ARENT WORDS " + notWordsArray);
-    //
-    //
-    // });
+  console.log("BEFORE ", allLettersSum(allLetters));
+  //gives you as many tiles as the board's dimension
+  for(var i=0; i<boardDimension;i++){
+    peel();
+  }
+
+  //initialize the dragginess & droppiness of the tiles
+  dragAndDropInit();
+  //initializes the values of each of the cells to null
+  findLetters();
+  //
+  dump();
+
+  $(".peel-btn").click(function(){
+      // win();
+      findLetters();
+      peel();
+
+      console.log("AFTER PEEL:", allLettersSum(allLetters));
+      wordCorrect();
+
+      console.log("THESE ARENT WORDS " + notWordsArray);
+
+  });
 
 
 
 });
 
 
-//////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 // DRAG AND DROP VERSION USING JQUERY UI
 
@@ -68,17 +82,7 @@ function dragAndDropInit(){
 ///Generate board made of divs
 //==============================================================================
 
-//Global variables that will be used throughout entire program
-var Board = {};
-
-var boardDimension = 8; //can be a prompt for user to choose their own board size
-var boardSize = Math.pow(boardDimension, 2); //squares the board dim to get the whole size
-
-for(var i=1; i<=boardSize; i++){
-  Board[i] = null;
-}
-
-//generates divs to create board
+//generates divs to create board of any dimension
 function generateBoard(boardDimension){
   var $board = $('.board');
 
@@ -101,7 +105,7 @@ function generateBoard(boardDimension){
       low = low + inc;
       high = high + inc;
     }
- }
+  }
 
 }
 
@@ -125,19 +129,21 @@ function updateBoard(index){
   else{
       Board[index]=null;
   }
+
 }
 
+//==============================================================================
 
-//only searches for word in the first column
+//searches for all tiles that have letters in them and updates the board
 function findLetters(){
   var low= 0;
   var high = 0;
-  var inc = 6;
+  var inc = boardDimension;
 
   //goes through the whole board column by column, left > right
   //adds each value to the Board object
-  while(high<36){
-    for(var i=0+low; i<6+high; i++){
+  while(high<boardSize){
+    for(var i=0+low; i<boardDimension+high; i++){
         //gets the div by its number ID, gets it child (the image)
         //and gets the value
         updateBoard(i);
@@ -147,7 +153,10 @@ function findLetters(){
     high = high + inc;
   }
 
+  console.log("BOARD AFTER UPDATE ", Board);
 }
+
+//==============================================================================
 
 //todo: COMBINE THE VERTICAL & HORIZONTAL INTO ONE function
 //POTENTIALLY DO THIS IN A WAY WHERE THE GRID CAN BE n x n!
@@ -157,12 +166,12 @@ function wordLoggerVertical(){
   //VERTICALLY - column by column
   var low= 0;
   var high = 0;
-  var inc = 6;
+  var inc = boardDimension;
 
   //goes through the whole board column by column, left > right
-  while(high<36){
+  while(high<boardSize){
     var word = "";
-    for(var i=1+low; i<=6+high; i++){
+    for(var i=1+low; i<=boardDimension+high; i++){
       if(typeof Board[i]==="string" && (typeof Board[i-1]==="string" || typeof Board[i+1]==="string")){
         word+=Board[i];
 
@@ -179,28 +188,30 @@ function wordLoggerVertical(){
 
   }
 
-  console.log(allWordsArray);
+  console.log(" VERTICAL ALL WORDS ", allWordsArray);
 
   return allWordsArray;
 }
+
+//==============================================================================
 
 function wordLoggerHorizontal(){
   var allWordsArray = [];
 
   //Horizontally
-  var low= 0;
-  var high = 0;
+  var low= 1;
+  var high = 1;
   var inc = 1;
 
   //goes through the whole board column by column, left > right
-  //NUMBERS COUNT DOWN VERTICALLY so to move horiz, +6 is necessary
-  while(high<=36 && low<=6){
+  //NUMBERS COUNT DOWN VERTICALLY so to move horiz, +6 (or whatever boardSize) is necessary
+  while(high<=boardSize && low<=boardDimension){
     var word = "";
-    for(var i=1+low; i<=31+high; i+=6){
-      if(typeof Board[i]==="string" && (typeof Board[i-6]==="string" || typeof Board[i+6]==="string")){
+    for(var i=low; i<=(boardSize-boardDimension)+high; i+=boardDimension){
+      if(typeof Board[i]==="string" && (typeof Board[i-boardDimension]==="string" || typeof Board[i+boardDimension]==="string")){
           word+=Board[i];
 
-          if(typeof Board[i+6]!=="string"){
+          if(typeof Board[i+boardDimension]!=="string"){
             allWordsArray.push(word);
             var word="";
           }
@@ -211,10 +222,15 @@ function wordLoggerHorizontal(){
     high = high + inc;
 
   }
-    console.log(allWordsArray);
-    return allWordsArray;
+
+  console.log(" HORIZONTAL ALL WORDS ", allWordsArray);
+
+  return allWordsArray;
 }
 
+//==============================================================================
+
+var notWordsArray = [];
 
 function wordCorrect(){
   //concatenates both horiz and vert word arrays
@@ -222,42 +238,21 @@ function wordCorrect(){
   allWordsArrayHoriz = wordLoggerHorizontal();
   allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
+  console.log("ALL ALL WORDS ", allWordsArray);
 
-  for(var i=0; i<allWordsArray.length;i++){
+  allWordsArray.forEach(function(madeWord){
     //checks whether the word is in the dictionary API
-      isWord(allWordsArray[i], notifyUser);
-      // console.log("WORD CHECK " + allWordsArray[i]);
+    isWord(madeWord);
 
-      if(notifyUser(isWord(allWordsArray[i]))===false){
-        notWordsArray.push(allWordsArray[i]);
-      }
-  }
+  });
 
-}
+} 
 
-var notWordsArray = [];
-
-//callback function for AJAX request
-function notifyUser(isWord) {
-if(isWord===false){
-  $('.word-result').html("At least one o' these ain't a word, SONNY BOY! No peeling.<p></p>");
-  $('.word-result').toggleClass("wrong");
-  return false;
-}
-else{
-    // console.log("This word is real");
-    $('.word-result').html("WOOPAH! Keep moving!<p></p>");
-    $('.word-result').removeClass("wrong");
-    return true;
-
-    // $(".letter").toggleClass("wrong");
-
-  }
-}
+//==============================================================================
 
 //searchTerm is the word that is created
 //cb is the callback function "notifyUser(isWord)"
-function isWord(searchTerm, cb) {
+function isWord(searchTerm, notifyUser) {
 
   var endpoint = "http://api.wordnik.com/v4/word.json/" + searchTerm + "/definitions?useCanonical=false&includeSuggestions=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
   $.ajax({
@@ -267,18 +262,24 @@ function isWord(searchTerm, cb) {
     success: function(data) {
       // console.log("results:", data.length);
       // console.log("word: "+ searchTerm);
-      if(data.length > 0) {
-        cb(true);
-      } else {
-        cb(false);
+      if(data.length > 0) { //is a word
+        console.log("This word is real");
+        $('.word-result').html("WOOPAH! Keep moving!<p></p>");
+        $('.word-result').removeClass("wrong");
+
+      } else { //is NOT a word
+        $('.word-result').html("<p>" + searchTerm + " is not a word. No peeling.</p><p></p>");
+        $('.word-result').toggleClass("wrong");
+
       }
     }
   });
 }
 
 
+//==============================================================================
 
-//similar to bubble sort but randomizes
+//similar to bubble sort but randomizes the letters given
 function shuffle(array){
   var currentIndex = array.length;
   var tempValue;
@@ -298,6 +299,7 @@ function shuffle(array){
   return array;
 }
 
+//==============================================================================
 
 function appendTile(letter){
   var letterImg = $('<img>');
@@ -308,6 +310,8 @@ function appendTile(letter){
   $(".letters").append(letterImg);
 
 }
+
+//==============================================================================
 
 //GLOBAL LETTER ARRAY
 var letterArray = ["a","a","d","e","e","e","g","i","i","l","n","o","o","r","s","t","u"];
@@ -336,12 +340,13 @@ function allLettersSum(object){
 }
 
 
+//==============================================================================
 
 function peel(){
   var shuffledArray = shuffle(letterArray);
 
   //if there's nothing in the shuffledArray, it doesn't peel anymore
-  if(allLettersSum(allLetters)<1){
+  if(allLettersSum(allLetters)<1 ){
     $('.peel-btn').removeClass("peel-btn-purple");
     $('.peel-btn').addClass("peel-btn-grey");
     return;
@@ -351,7 +356,7 @@ function peel(){
 
     var selectedLetter = shuffledArray[random];
 
-    //gets index of the selected letter
+    //gets index of the random selected letter
     var index = shuffledArray.indexOf(selectedLetter);
 
     //removes the selected letter from array
@@ -368,9 +373,13 @@ function peel(){
 
 };
 
-var dumpedLetter;
+//==============================================================================
+
+// var dumpedLetter;
 
 function dump(){
+
+  //DUMP JQUERY UI INITIALIZE--------------------------------------------
   $(".letter").draggable(
     {
       cursor: 'move',
@@ -408,7 +417,7 @@ function dump(){
         ui.draggable.detach();
         ui.draggable.fadeOut("slow",function(){
           for(var i=0; i<3; i++){
-            peel();
+            peel();  //just calls peel function 3 times
           }
         });
       }
@@ -422,6 +431,8 @@ function dump(){
 
 }
 
+//==============================================================================
+
 function win(){
   total=0;
   for(var key in Board){
@@ -434,6 +445,8 @@ function win(){
     $(".title").html("The board is filled!");
   }
 }
+
+//==============================================================================
 
 function timer(){
 

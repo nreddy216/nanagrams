@@ -246,9 +246,11 @@ function wordCorrect(){
 
   });
 
-} 
+}
 
 //==============================================================================
+
+var peelOn = true;
 
 //searchTerm is the word that is created
 //cb is the callback function "notifyUser(isWord)"
@@ -267,10 +269,15 @@ function isWord(searchTerm, notifyUser) {
         $('.word-result').html("WOOPAH! Keep moving!<p></p>");
         $('.word-result').removeClass("wrong");
 
+        $('.peel-btn').removeClass("peel-btn-purple");
+
       } else { //is NOT a word
         $('.word-result').html("<p>" + searchTerm + " is not a word. No peeling.</p><p></p>");
         $('.word-result').toggleClass("wrong");
 
+
+        $('.peel-btn').addClass("peel-btn-grey");
+        peelOn = false;
       }
     }
   });
@@ -394,19 +401,13 @@ function dump(){
     over: function(event, ui){
       console.log(ui.draggable.prop('id'));
 
-
+      //toggles the red on hover
       $(this).addClass("hoverdump");
-      $(this).removeClass("normaldump");
     },
     drop: function(event, ui){
 
 
-      // console.log(ui.draggable + " DRAGGABLE DUMP")
-      $(this).addClass("normaldump");
       $(this).removeClass("hoverdump");
-
-      // console.log(allLettersSum(allLetters));
-      // console.log(allLetters);
 
       if(allLettersSum(allLetters)>1){
         //push the dumped letter back onto the array + object

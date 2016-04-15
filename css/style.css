@@ -1,6 +1,5 @@
 body{
-  /*background-color: #1a1a1a;*/
-  background-color: rgba(120,210,210,0.9);
+  background-color: #333333;
   background-repeat: repeat;
   background-size: 700px;
 
@@ -8,18 +7,17 @@ body{
 
 .title{
   text-align: center;
-  font-family: Avenir;
-  color: white;
-  font-size: 40px;
-  text-shadow: 1px 1px 5px  black;
+  color: #feda00;
+  font-size: 60px;
+  margin: 0px;
+  font-family: 'Monoton', cursive;
 }
 
 .word-result{
   text-align: center;
-  font-family: Avenir;
-  color: white;
+  font-family: 'Roboto', sans-serif;
+  color: #f0efef;
   font-size: 20px;
-  text-shadow: 1px 1px 5px  black;
 }
 
 .board{
@@ -27,12 +25,11 @@ body{
   margin: 0px auto;
   position: relative;
   border-radius: 10px;
-  /*background-color: rgba(120,210,210,0.9);*/
   opacity: 0.9;
   width: auto;
   min-width: 400px;
   max-width: 1000px;
-  padding-top: 5px;
+  padding-top: 20px;
 }
 
 
@@ -41,7 +38,7 @@ body{
 }
 
 .cell{
-  border: 0.01px solid rgba(0,110,210,1);
+  border: 0.01px solid #f0efef;
   border-radius: 7px;
   width: 60px;
   height: 60px;
@@ -57,7 +54,7 @@ body{
 .tile-pile{
   border: 0px solid #000;
   border-radius: 5px;
-  background-color: #333333;
+  background-color: #f0efef;
   height: 200px;
   width: 100%;
   min-width: 800px;
@@ -69,18 +66,20 @@ body{
 }
 
 .peel-btn{
-  border-radius: 5px;
+  border-radius: 100px;
   background-size: cover;
   color: white;
   float: right;
   margin-right: 50px;
   text-align: center;
   padding: 20px;
-  height: 50px;
+  height: 70px;
 }
 
 .peel-btn-purple{
-  background-color: #8565c4;
+  /*background-color: #8565c4;*/
+  /*background-color: #f1651d;*/
+  background-color: #feda00;
 }
 
 .peel-btn-grey{
@@ -92,12 +91,12 @@ body{
 }
 
 .peel-btn #peel-txt{
-  color: white;
+  color: #f0efef;
   position: relative;
   top: -50%;
   font-size: 30px;
-  font-family: Avenir;
-  text-shadow: 1px 1px 5px  black;
+  font-family: 'Roboto', sans-serif;
+  /*text-shadow: 1px 1px 5px  black;*/
 }
 
 .dump-btn{
@@ -110,7 +109,8 @@ body{
 }
 
 .normaldump{
-  background-color: #2565c4;
+  /*background-color: #2565c4;*/
+  background-color: #333333;
 }
 
 .hoverdump{
@@ -118,16 +118,15 @@ body{
 }
 
 .dump-btn #dump-txt{
-  color: white;
+  color: #f0efef;
   position: relative;
   font-size: 30px;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   text-shadow: 1px 1px 5px  black;
 }
 
 .letter {
   display: inherit;
-  margin-left: 3px;
   margin-right: 3px;
 }
 

@@ -18,6 +18,15 @@ $(document).ready(function(){
     $("#myModal").modal();
   });
 
+  //TIMER
+  $('.timer').startTimer({
+    onComplete: function(element){
+      element.addClass('is-complete');
+      // $('.word-result').html('<p>You lose!</p>');
+      ("#resultModal").modal();
+    }
+  });
+
   generateBoard(boardDimension);
   //# of tiles
 

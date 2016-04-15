@@ -4,50 +4,19 @@ var Board = {};
 var boardDimension = 7; //todo: can be a prompt for user to choose their own board size
 var boardSize = Math.pow(boardDimension, 2); //squares the board dim to get the whole size
 
-for(var i=1; i<=boardSize; i++){
+for(var i=1; i<=boardSize; i++){ //fill board with nulls
   Board[i] = null;
 }
 
-
-function countdown(){
-      //gets whatever num of seconds is in div
-      var counter = Number($('#seconds-left').text());
-
-      counter--;
-
-      if (counter >= 0) {
-        $("#seconds-left").html(counter);
-      }
-      if (counter < 10 && counter >= 0){
-        $("#seconds-left").html("0" + counter); //adds 0 to single digit seconds
-      }
-      // Display 'counter' wherever you want to display it.
-      if (counter===0) {
-          clearInterval(timer);
-
-          //if win is true:
-          $(".win-or-lose").html("<p>You win!!</p>");
-
-          //after time is up, modal pops up telling player if they won or lost
-          $("#resultModal").modal();
-
-      }
-
-}
-
-
-
-
-
 //==============================================================================
+
 
 // WHEN DOCUMENT IS CALLED
 $(document).ready(function(){
 
 
-  //timer ---------------------------------------------------------------------
+  //start timer ---------------------------------------------------------------------
 
-  //start timer
   var timer = setInterval(countdown, 1000);
 
   // ---------------------------------------------------------------------
@@ -62,10 +31,12 @@ $(document).ready(function(){
   });
 
 
+  //generate the board based on the boardDimension (global var at top)
   generateBoard(boardDimension);
-  //# of tiles
 
+  //# of tiles
   console.log("BEFORE ", allLettersSum(allLetters));
+
   //gives you as many tiles as the board's dimension
   for(var i=0; i<boardDimension;i++){
     peel();
@@ -73,26 +44,76 @@ $(document).ready(function(){
 
   //initialize the dragginess & droppiness of the tiles
   dragAndDropInit();
+
   //initializes the values of each of the cells to null
   findLetters();
-  //
+
+  //making "dump" button active
   dump();
 
-  $(".peel-btn").click(function(){
-      // win();
-      findLetters();
-      peel();
 
-      console.log("AFTER PEEL:", allLettersSum(allLetters));
-      wordCorrect();
-
-      console.log("THESE ARENT WORDS " + notWordsArray);
-
-  });
-
+  $(".peel-btn").bind('click', peelClick);
 
 
 });
+
+function peelClick(){
+
+    findLetters();
+
+
+    // console.log("AFTER PEEL:", allLettersSum(allLetters));
+    wordCorrect();
+
+
+    //how many tiles are NOT on the board and in the tile pile?
+    var tilePileNum = $('.letters').children().length;
+
+    // console.log("TILE PILE ", tilePileNum);
+
+    if(tilePileNum === 0){
+      $('.peel-btn').addClass('peel-btn-yellow');
+      peel();
+    } else {
+      $('.peel-btn').removeClass('peel-btn-yellow');
+    }
+
+
+    // console.log("BEFORE ", allLettersSum(allLetters));
+
+
+}
+
+
+///Countdown function in set interval for timer
+//==============================================================================
+
+//gets whatever num of seconds is in div
+
+function countdown(){
+
+      var counter = Number($('#seconds-left').text());
+
+      counter--;
+
+      if (counter >= 0) {
+        $("#seconds-left").html(counter);
+      }
+      if (counter < 10 && counter >= 0){
+        $("#seconds-left").html("0" + counter); //adds 0 to single digit seconds
+      }
+      // Display 'counter' wherever you want to display it.
+      if (counter===0) {
+
+          //after time is up, modal pops up telling player if they won or lost
+          //default is "you lost" :)
+          $("#resultModal").modal();
+
+      }
+
+}
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -202,7 +223,7 @@ function findLetters(){
     high = high + inc;
   }
 
-  console.log("BOARD AFTER UPDATE ", Board);
+  // console.log("BOARD AFTER UPDATE ", Board);
 }
 
 //==============================================================================
@@ -237,7 +258,7 @@ function wordLoggerVertical(){
 
   }
 
-  console.log(" VERTICAL ALL WORDS ", allWordsArray);
+  // console.log(" VERTICAL ALL WORDS ", allWordsArray);
 
   return allWordsArray;
 }
@@ -256,7 +277,7 @@ function wordLoggerHorizontal(){
   //NUMBERS COUNT DOWN VERTICALLY so to move horiz, +6 (or whatever boardSize) is necessary
   while(high<=boardSize && low<=boardDimension){
     var word = "";
-    for(var i=low; i<=(boardSize-boardDimension)+high; i+=boardDimension){
+    for(var i=low; i<=(boardSize-boardDimension + 1)+high; i+=boardDimension){
       if(typeof Board[i]==="string" && (typeof Board[i-boardDimension]==="string" || typeof Board[i+boardDimension]==="string")){
           word+=Board[i];
 
@@ -272,65 +293,65 @@ function wordLoggerHorizontal(){
 
   }
 
-  console.log(" HORIZONTAL ALL WORDS ", allWordsArray);
+  // console.log(" HORIZONTAL ALL WORDS ", allWordsArray);
 
   return allWordsArray;
 }
 
 //==============================================================================
 
-var notWordsArray = [];
 
-function wordCorrect(){
+
+function wordCorrect(peelOn){
+
+  var notWordsArray = [];
+
   //concatenates both horiz and vert word arrays
   allWordsArrayVert = wordLoggerVertical();
   allWordsArrayHoriz = wordLoggerHorizontal();
   allWordsArray = allWordsArrayVert.concat(allWordsArrayHoriz);
 
+  //all the words on board
   console.log("ALL ALL WORDS ", allWordsArray);
 
+  //hit WORDNIK API in order to see whehter the word is in the dictionary
   allWordsArray.forEach(function(madeWord){
     //checks whether the word is in the dictionary API
-    isWord(madeWord);
+    var endpoint = "http://api.wordnik.com/v4/word.json/" + madeWord + "/definitions?useCanonical=false&includeSuggestions=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+    $.ajax({
+      type: 'GET',
+      url: endpoint,
+      async: false,
+      dataType: 'json'})
+      .then(function(data) {
+        if(data.length > 0) { //is a word
+          console.log("This word is real");
 
+        } else { //is NOT a word
+
+          notWordsArray.push(madeWord);
+        }
+      });
   });
 
+  console.log(" NOT WORdS ", notWordsArray);
+
+  $(".word-result").html("<p></p>");
+
+  if(notWordsArray.length > 0 ){
+
+    notWordsArray.forEach(function(notWord){
+      $(".word-result").append("<p>" + notWord + " is not a real word </p>");
+    });
+
+  }
+
+  // WIN EXPRESSION!!!!!!!!!!============================!!!!!!!!!!!!!!!!!!!!!!!!
+  if(allLettersSum(allLetters)===0 && notWordsArray.length===0){
+    $(".win-or-lose").html("<p>You win!!</p>");
+  }
+
 }
-
-//==============================================================================
-
-var peelOn = true;
-
-//searchTerm is the word that is created
-//cb is the callback function "notifyUser(isWord)"
-function isWord(searchTerm, notifyUser) {
-
-  var endpoint = "http://api.wordnik.com/v4/word.json/" + searchTerm + "/definitions?useCanonical=false&includeSuggestions=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
-  $.ajax({
-    type: 'GET',
-    url: endpoint,
-    dataType: 'json',
-    success: function(data) {
-      // console.log("results:", data.length);
-      // console.log("word: "+ searchTerm);
-      if(data.length > 0) { //is a word
-        console.log("This word is real");
-        $('.word-result').html("WOOPAH! Keep moving!<p></p>");
-        $('.word-result').removeClass("wrong");
-        
-
-      } else { //is NOT a word
-        $('.word-result').html("<p>" + searchTerm + " is not a word. No peeling.</p><p></p>");
-        $('.word-result').toggleClass("wrong");
-
-
-        $('.peel-btn').addClass("peel-btn-grey");
-        peelOn = false;
-      }
-    }
-  });
-}
-
 
 //==============================================================================
 
@@ -424,7 +445,7 @@ function peel(){
   }
 
   dragAndDropInit();
-  console.log(shuffledArray);
+  // console.log(shuffledArray);
 
 };
 
@@ -447,7 +468,7 @@ function dump(){
     activeClass: "ui-state-hover",
     hoverClass: "hoverdump",
     over: function(event, ui){
-      console.log(ui.draggable.prop('id'));
+      // console.log(ui.draggable.prop('id'));
 
       //toggles the red on hover
       $(this).addClass("hoverdump");
@@ -471,11 +492,9 @@ function dump(){
           }
         });
 
-        //TIMER reduce by 10 with each dump
-        // var timerSeconds = $('.timer').attr('data-seconds-left');
-        // console.log("TIMER SECONDS ", timerSeconds);
-        // timerSeconds = timerSeconds - 10;
-        // $('.timer').data('data-seconds-left', timerSeconds);
+        //TIMER reduce by 5 with each dump
+        var counter = Number($('#seconds-left').text());
+        $('#seconds-left').html(counter - 5);
       }
       else{
         $('.dump-btn').css("background-color", "grey");
@@ -491,27 +510,20 @@ function dump(){
 
 function win(){
   total=0;
+
+  var tilePileNum = $('.letters').children().length;
+  // console.log("TILE PILE NUM "  + tilePileNum);
+
   for(var key in Board){
-    if(Board[key]!==null){
-      total+=1;
+    if(Board[key]){
+      // console.log("NUMBER BOARD KEY ", Board[key]);
+      total+= Number(Board[key]);
     }
-    console.log("BOARD KEY WIN " + Board[key]);
+    // console.log("BOARD KEY WIN " + total);
   }
   if(total===17){
-    $(".title").html("The board is filled!");
+    console.log("THIS IS A WIN");
   }
 }
 
 //==============================================================================
-
-function timer(){
-
-  // setTimeout(1000);
-
-  // var day = new Date();
-  // var today = day.now();
-  // $('.clock').countdown(today + "00:00:40", function(event) {
-  //   var totalSeconds = event.offset.seconds;
-  //   $(this).html(event.strftime(totalSeconds + '%S sec'));
-  // });
-}

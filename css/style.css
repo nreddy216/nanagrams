@@ -82,7 +82,7 @@ body{
 }
 
 .cell img{
-  width: 60px;
+  width: 58px;
 }
 
 .tile-pile{
@@ -99,19 +99,21 @@ body{
 }
 
 .peel-btn{
-  border-radius: 100px;
+  border-radius: 5px;
   background-size: cover;
   float: right;
   margin-right: 50px;
   text-align: center;
   padding: 20px;
   height: 70px;
-  background-color: #feda00;
+  background-color: #d3d3d3;
 }
 
 
-.peel-btn-grey{
-  background-color: #d3d3d3;
+/*peel btn active*/
+.peel-btn-yellow{
+
+  background-color: #feda00;
 }
 
 .peel-btn #peel-txt{

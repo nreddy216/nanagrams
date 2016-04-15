@@ -10,12 +10,10 @@
          <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
          <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-         <!-- Countdown  -->
-         <!-- <script src="bower_components/jquery.simple.timer/jquery.simple.timer.js"></script> -->
-
          <!-- fonts-->
          <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
          <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
          <!-- style css -->
           <link href="css/style.css" rel="stylesheet">
 
@@ -30,9 +28,6 @@
        </head>
        <body>
         <div class='header'>
-          <!-- <div class="timer" data-seconds-left=10></div> -->
-
-
           <div class="title">nanagrams <i class="glyphicon glyphicon-question-sign" id="help-btn" alt="help"></i></div>
           <div class="timer">00:00:<span id="seconds-left">59</span></div>
         </div>
@@ -40,19 +35,20 @@
 
 
 
-        <div class="word-result">
-        </div>
-
 
         <!-- board that is generated w/JS-->
         <div class="board">
-
         </div>
 
 
+        <!-- Tells you if a word is not correct  -->
+        <div class="word-result">
+        </div>
+
+        <!-- Where all the new tiles will be -->
         <div class="tile-pile">
 
-          <div class="peel-btn peel-btn-purple"><p id="peel-txt">
+          <div class="peel-btn"><p id="peel-txt">
             PEEL
           </p></div>
           <div class="letters">
@@ -99,7 +95,7 @@
                     </div>
                     <div class="form-group">
                       <p>
-                        If you're stuck, drag your least-desired letter into the <strong>DUMP</strong> pile.
+                        If you're stuck, drag your least-desired letter into the <strong>DUMP</strong> pile. You will lose 5 seconds for each dump!
                       </p>
                       <p>
                         If you're finished with your letters, click <strong>PEEL</strong>.
@@ -113,16 +109,17 @@
           <!-- END OF INSTRUCTIONS MODAL  -->
 
 
+        <!--  ON START ASK USER FOR BOARD DIMENSION ? (TODO) -->
         <!-- HIDDEN HELP MODAL WITH INSTRUCTIONS -->
         <!-- Modal -->
-          <div class="modal fade" id="startModal" role="dialog">
-            <div class="modal-dialog">
+          <!-- <div class="modal fade" id="startModal" role="dialog">
+            <div class="modal-dialog"> -->
 
               <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header" style="padding:35px 50px;">
+              <!-- <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;"> -->
                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                  <h4></span> How to play</h4>
+                  <!-- <h4></span> How to play</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
                   <form role="form">
@@ -153,9 +150,8 @@
               </div>
 
             </div>
-          </div>
+          </div> -->
           <!-- END OF START MODAL  -->
-        </div>
 
 
        </body>

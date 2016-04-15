@@ -11,7 +11,7 @@
          <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
          <!-- Countdown  -->
-         <script src="bower_components/jquery.simple.timer/jquery.simple.timer.js"></script>
+         <!-- <script src="bower_components/jquery.simple.timer/jquery.simple.timer.js"></script> -->
 
          <!-- fonts-->
          <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
@@ -30,9 +30,14 @@
        </head>
        <body>
         <div class='header'>
-          <div class="timer" data-seconds-left=30></div>
-          <h1 class="title">nanagrams</h1><button type="button" class="btn btn-default btn-lg help-btn" id="myBtn">help!</button>
+          <!-- <div class="timer" data-seconds-left=10></div> -->
+
+
+          <div class="title">nanagrams <i class="glyphicon glyphicon-question-sign" id="help-btn" alt="help"></i></div>
+          <div class="timer">00:00:<span id="seconds-left">59</span></div>
         </div>
+
+
 
 
         <div class="word-result">
@@ -77,13 +82,13 @@
 
         <!-- HIDDEN HELP MODAL WITH INSTRUCTIONS -->
         <!-- Modal -->
-          <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal fade" id="helpModal" role="dialog">
             <div class="modal-dialog">
 
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header" style="padding:35px 50px;">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <button id="close-help-modal" type="button" class="close" data-dismiss="modal">&times;</button>
                   <h4>How to play</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">

@@ -1,31 +1,66 @@
 //Global variables that will be used throughout entire program
 var Board = {};
 
-var boardDimension = 7; //can be a prompt for user to choose their own board size
+var boardDimension = 7; //todo: can be a prompt for user to choose their own board size
 var boardSize = Math.pow(boardDimension, 2); //squares the board dim to get the whole size
 
 for(var i=1; i<=boardSize; i++){
   Board[i] = null;
 }
 
+
+function countdown(){
+      //gets whatever num of seconds is in div
+      var counter = Number($('#seconds-left').text());
+
+      counter--;
+
+      if (counter >= 0) {
+        $("#seconds-left").html(counter);
+      }
+      if (counter < 10 && counter >= 0){
+        $("#seconds-left").html("0" + counter); //adds 0 to single digit seconds
+      }
+      // Display 'counter' wherever you want to display it.
+      if (counter===0) {
+          clearInterval(timer);
+
+          //if win is true:
+          $(".win-or-lose").html("<p>You win!!</p>");
+
+          //after time is up, modal pops up telling player if they won or lost
+          $("#resultModal").modal();
+
+      }
+
+}
+
+
+
+
+
 //==============================================================================
 
 // WHEN DOCUMENT IS CALLED
 $(document).ready(function(){
 
+
+  //timer ---------------------------------------------------------------------
+
+  //start timer
+  var timer = setInterval(countdown, 1000);
+
+  // ---------------------------------------------------------------------
+
   //instructions modal
-  $("#myBtn").click(function(){
-    $("#myModal").modal();
+  $("#help-btn").click(function(){
+    clearInterval(timer); //pauses timer while open
+    $("#helpModal").modal();
+    $("#close-help-modal").click(function(){
+      timer = setInterval(countdown, 1000); //resumes timer when closed
+    });
   });
 
-  //TIMER
-  $('.timer').startTimer({
-    onComplete: function(element){
-      element.addClass('is-complete');
-      // $('.word-result').html('<p>You lose!</p>');
-      ("#resultModal").modal();
-    }
-  });
 
   generateBoard(boardDimension);
   //# of tiles
@@ -282,8 +317,7 @@ function isWord(searchTerm, notifyUser) {
         console.log("This word is real");
         $('.word-result').html("WOOPAH! Keep moving!<p></p>");
         $('.word-result').removeClass("wrong");
-
-        $('.peel-btn').removeClass("peel-btn-purple");
+        
 
       } else { //is NOT a word
         $('.word-result').html("<p>" + searchTerm + " is not a word. No peeling.</p><p></p>");
@@ -424,6 +458,7 @@ function dump(){
       $(this).removeClass("hoverdump");
 
       if(allLettersSum(allLetters)>1){
+
         //push the dumped letter back onto the array + object
         letterArray.push(ui.draggable.prop('id'));
         allLetters[ui.draggable.prop('id')]+=1;
@@ -435,6 +470,12 @@ function dump(){
             peel();  //just calls peel function 3 times
           }
         });
+
+        //TIMER reduce by 10 with each dump
+        // var timerSeconds = $('.timer').attr('data-seconds-left');
+        // console.log("TIMER SECONDS ", timerSeconds);
+        // timerSeconds = timerSeconds - 10;
+        // $('.timer').data('data-seconds-left', timerSeconds);
       }
       else{
         $('.dump-btn').css("background-color", "grey");

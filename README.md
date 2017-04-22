@@ -1,6 +1,6 @@
-# nanagrams
+# Nanagrams
 
-##Overview
+## Overview
 A game that's like Bananagrams...but one-player....and nana-themed.
 
 Instructions:
@@ -8,20 +8,20 @@ Instructions:
 * If you get stuck, drag your unwanted tile to DUMP.
 * Once you have used up your tiles, click PEEL to get another tile.
 
-##Planning
+## Planning
 
 I decided to use Trello to organize my user stories and created a wireframe in Balsamiq.
 
 Wireframe of Nanagrams
 ![Mockup](http://s16.postimg.org/6h4lvru1x/nanagrams_mockup.png)
 
-##Technology
+## Technology
 
 * HTML/CSS
 * JavaScript, jQuery, & jQuery UI for the drag/drop functionality
 * WordNik API
 
-##Future features & TODOs
+## Future features & TODOs
 
 TODOs:
 * Timer!
@@ -36,7 +36,7 @@ Other Features:
 * Make a nonsense poem using the words they made
 * Highlight the tiles RED when the word is wrong & Highlight the tiles GREENish when the word is right
 
-##Timeline:
+## Timeline:
 
 02/04/2016
 
@@ -44,7 +44,6 @@ Other Features:
 * The program accesses the Wordnik API to check whether the words are legitimate.
 * New additions: Peel & Dump buttons. They ~mostly~ work, but need to be tweaked.
 * I made it nana-themed. It looks gloriously hideous. You're welcome.
-
 
 02/03/2016
 
@@ -56,9 +55,3 @@ Other Features:
 * Wrote 'user stories' to organize TODOs: https://trello.com/b/geCES9ro/nanagrams
 * Created a temporary board & a few temporary tiles
 * Click functionality included: When a player clicks a tile then clicks a cell, the tile appends to the cell.
-
-##Contributors
-
-Shout out to Ilias
-
-If you would like to contribute to this project in the future, fork it and submit a pull request.
